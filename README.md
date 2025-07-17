@@ -21,7 +21,7 @@ Make sure you have **Node.js (>=16)** installed.
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/your-project-name.git
+git clone https://github.com/huuthao98/English-Website
 
 # Move into the project directory
 cd your-project-name
