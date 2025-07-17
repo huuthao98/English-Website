@@ -1,0 +1,51 @@
+export const LanguageOptions = [
+  {
+    id: 1,
+    label: "English",
+    value: "english",
+    img: "/english.svg",
+    teacher: 412,
+  },
+  {
+    id: 2,
+    label: "Japanese",
+    value: "japanese",
+    img: "/japanese.svg",
+    teacher: 673,
+  },
+  {
+    id: 3,
+    label: "Chinese",
+    value: "chinese",
+    img: "/chinese.svg",
+    teacher: 158,
+  },
+  {
+    id: 4,
+    label: "French",
+    value: "french",
+    img: "/french.svg",
+    teacher: 234,
+  },
+  {
+    id: 5,
+    label: "German",
+    value: "german",
+    img: "/german.svg",
+    teacher: 597,
+  },
+  {
+    id: 6,
+    label: "Italian",
+    value: "italian",
+    img: "/italian.svg",
+    teacher: 841,
+  },
+  {
+    id: 7,
+    label: "Spanish",
+    value: "spanish",
+    img: "/spanish.webp",
+    teacher: 841,
+  },
+];

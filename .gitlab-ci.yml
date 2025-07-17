@@ -1,0 +1,77 @@
+stages:
+  - debug
+  - build_dev
+  - deploy_dev
+  - deploy_uat
+
+build_dev:
+  stage: build_dev
+  variables:
+    GIT_STRATEGY: none
+  before_script:
+    - eval $(ssh-agent -s)
+    - ssh-add /home/gitlab-runner/.ssh/gitlab
+    - ssh -T git@gitlab.nato99tech.com
+  script:
+    - |
+      curl -X POST "https://api.telegram.org/bot$TOKEN_BOTFATHER/sendMessage" \
+        -H 'Content-Type: application/json' \
+        -d "{\"chat_id\": \"$CHAT_ID\", \"message_thread_id\": $THREAD_ID, \"text\": \"🚀  *$CI_COMMIT_AUTHOR* start build for *$CI_PROJECT_NAME* on branch *$CI_COMMIT_REF_NAME*\", \"parse_mode\": \"Markdown\"}"
+    - rm -rf /var/apps/dev/tenant/tenant-admin
+    - mkdir -p /var/apps/dev/tenant/tenant-admin
+    - cd /var/apps/dev/tenant/tenant-admin
+    - git clone git@gitlab.nato99tech.com:acv/tenant-admin.git .
+    - git checkout develop
+    - cp /var/apps/dev/tenant/env/tenant-admin.env /var/apps/dev/tenant/tenant-admin/.env
+    - docker build -t tenant-admin:latest . > build.log 2>&1 || echo "Build failed"
+      - build_content=$(cat build.log)
+    - |
+      project_info=$(cat <<EOF
+      ===Notification from the system===
+      Project ID: $CI_PROJECT_ID
+      Project name: $CI_PROJECT_NAME
+      Project URL: $CI_PROJECT_URL
+      Branch: $CI_COMMIT_REF_NAME
+      Commit: $CI_COMMIT_SHA
+      EOF
+      )
+    - message="$build_content"$'\n\n'"$project_info"
+    - echo "$build_content"
+    - |
+      if grep -q "error:\|exit code\|Build failed" build.log; then
+        curl -X POST "https://api.telegram.org/bot$TOKEN_BOTFATHER/sendMessage" \
+          -H 'Content-Type: application/json' \
+          -d "{ \"chat_id\": \"$CHAT_ID\", \"message_thread_id\": $THREAD_ID, \"text\": \"❌ *$CI_COMMIT_AUTHOR* build failed for *$CI_PROJECT_NAME* on branch *$CI_COMMIT_REF_NAME*\n [🔗 View failed job]($CI_PROJECT_URL/-/jobs/$CI_JOB_ID)\", \"parse_mode\": \"Markdown\" }"
+        exit 1
+      fi
+  tags:
+    - vmi2551738
+  only:
+    - develop
+
+deploy_dev:
+  stage: deploy_dev
+  tags:
+    - vmi2551738
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - cd /var/apps/dev/tenant/tenant-admin
+    - docker service ls | grep "tenant_tenant_admin" && docker service rm tenant_tenant_admin || echo "Service tenant_tenant_admin does not exist..."
+    - docker stack deploy -c docker-compose.yml --with-registry-auth tenant
+    - |
+      curl -X POST "https://api.telegram.org/bot$TOKEN_BOTFATHER/sendMessage" \
+        -H 'Content-Type: application/json' \
+        -d "{\"chat_id\": \"$CHAT_ID\", \"message_thread_id\": $THREAD_ID, \"text\": \"✅ *$CI_COMMIT_AUTHOR* deploy success for *$CI_PROJECT_NAME* on branch *$CI_COMMIT_REF_NAME* \n [🔗 Product-Link](https://tenant.nato99tech.com/)\", \"parse_mode\": \"Markdown\"}"
+      exit 0
+  only:
+    - develop
+
+deploy_uat:
+  stage: deploy_uat
+  script:
+    - echo "Not yet implement"
+    - docker compose -f docker-compose.yml down
+    - docker compose -f docker-compose.yml up -d
+  only:
+    - uat

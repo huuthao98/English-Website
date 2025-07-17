@@ -1,0 +1,23 @@
+services:
+  tenant_admin:
+    image: tenant-admin:latest
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
+    environment:
+      - NATION_SECRET=${NATION_SECRET}
+    networks:
+      - swarm-network
+    ports:
+      - target: 7011
+        published: 7011
+        protocol: tcp
+        mode: host
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+networks:
+  swarm-network:
+    external: true
