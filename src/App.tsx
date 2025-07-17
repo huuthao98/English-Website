@@ -1,5 +1,5 @@
-import { Router } from "./routes/router";
 import { ThemeProvider } from "./providers/theme-provider";
+import { Router } from "./routes/router";
 
 export const App = () => {
   return (
