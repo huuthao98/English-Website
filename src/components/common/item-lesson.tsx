@@ -50,9 +50,9 @@ export const ItemLesson = (data: any) => {
         return (
           <Card
             key={item.post_id}
-            className="flex items-center flex-row px-6 md:px-4"
+            className="flex items-center  flex-col px-6 md:px-4 md:flex-row"
           >
-            <div className="flex flex-col gap-2 items-center self-start">
+            <div className="flex flex-col gap-2 items-center  self-start md:self-center w-full">
               <img
                 src={item.img_url || ""}
                 alt=""
@@ -76,9 +76,9 @@ export const ItemLesson = (data: any) => {
                   <img src="/verify_icon.svg" alt="verify" />
                 </span>
               </span>
-              <div className="font-medium text-tiny  text-gray3 uppercase flex items-center">
-                <span>Speaks :</span>
-                <div className="flex items-center gap-2 mx-1 h6">
+              <div className="font-medium text-tiny text-gray3 uppercase flex items-center">
+                <span className="whitespace-nowrap self-start">Speaks :</span>
+                <div className="flex items-center gap-2 mx-1 h6 flex-wrap">
                   {item.speaks.map((item: any) => {
                     return (
                       <div key={item} className="flex items-center gap-2">

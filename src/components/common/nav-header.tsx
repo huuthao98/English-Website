@@ -77,7 +77,7 @@ const NavHeader = ({
   // },
 }: Navbar1Props) => {
   return (
-    <section className="px-4 py-6 w-full justify-center flex">
+    <section className="md:px-4 px-0 py-6 w-full justify-center flex">
       <div className="container">
         {/* Desktop Menu */}
         <nav className="hidden justify-between lg:flex">

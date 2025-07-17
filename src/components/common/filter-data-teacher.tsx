@@ -78,13 +78,13 @@ export function FilterDataTeacher() {
   };
 
   return (
-    <div className="flex items-center justify-between gap-4 w-full px-4 py-2">
-      <div className="flex flex-row flex-col-reverse md:flex-row gap-2 items-start gap-y-2 ">
+    <div className="flex flex-col md:flex-row items-center justify-between gap-2 w-full md:px-4 px-1 py-2 ">
+      <div className="flex flex-row flex-col-reverse md:flex-row gap-2 items-start gap-y-2 flex-wrap justify-center">
         <Input
           placeholder="Name/Course/Interests"
           value={valueSearchQParam || ""}
           onChange={(event) => setValueSearchQParam(event.target.value)}
-          className="h-[40px] w-[180px]"
+          className="h-[40px] w-[200px]"
         />
 
         <Popover open={open} onOpenChange={setOpen}>
@@ -210,8 +210,8 @@ export function FilterDataTeacher() {
           </PopoverContent>
         </Popover>
       </div>
-      <div>
-        <Button onClick={handleSuggest}>Course suggestions</Button>
+      <div >
+        <Button className="w-[200px]" onClick={handleSuggest}>Course suggestions</Button>
       </div>
     </div>
   );

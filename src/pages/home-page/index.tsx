@@ -127,12 +127,16 @@ export default function HomePage() {
               </div>
               <div className="flex justify-center mt-10">
                 <div className="flex items-center gap-3">
-                  <span className="text-[22px]">Excellent</span>
-                  <img src="/star.svg" alt="star" className="w-[130px]" />
+                  <span className="md:text-[22px] text-[16px]">Excellent</span>
+                  <img
+                    src="/star.svg"
+                    alt="star"
+                    className="md:w-[130px] w-[100px]"
+                  />
                   <img
                     src="one-star.svg"
                     alt="one-star"
-                    className="w-[130px]"
+                    className="md:w-[130px] w-[100px]"
                   />
                 </div>
               </div>
