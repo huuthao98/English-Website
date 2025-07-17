@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { ROUTES } from "../constants/route-paths";
 
-import { DefaultLayout } from "../layouts/dashboard-layout/default-layout";
+import { DefaultLayout } from "../layouts/default-layout/default-layout";
 
 import HomePage from "@/pages/home-page";
 import WishListPage from "@/pages/wish-list-page";

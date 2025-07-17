@@ -71,10 +71,10 @@ const NavHeader = ({
       url: "/history",
     },
   ],
-  auth = {
-    login: { title: "Login", url: "#" },
-    signup: { title: "Sign up", url: "#" },
-  },
+  // auth = {
+  //   login: { title: "Login", url: "#" },
+  //   signup: { title: "Sign up", url: "#" },
+  // },
 }: Navbar1Props) => {
   return (
     <section className="px-4 py-6 w-full justify-center flex">

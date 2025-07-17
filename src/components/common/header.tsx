@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { Separator } from "@/components/ui/separator";
 import { NavHeader } from "./nav-header";
 
 interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
