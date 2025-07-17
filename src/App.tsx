@@ -3,7 +3,7 @@ import { Router } from "./routes/router";
 
 export const App = () => {
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
       <Router />
     </ThemeProvider>
   );
